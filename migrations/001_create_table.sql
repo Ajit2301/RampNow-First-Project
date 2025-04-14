@@ -1,0 +1,22 @@
+CREATE TABLE IF NOT EXISTS users (
+    id SERIAL PRIMARY KEY,
+    first_name VARCHAR(100) NOT NULL,
+    last_name VARCHAR(100) NOT NULL,
+    gender VARCHAR(15) NOT NULL,
+    location VARCHAR(25) NOT NULL,
+    email VARCHAR(30) UNIQUE NOT NULL,
+    phone VARCHAR(20) NOT NULL,
+    department VARCHAR(30) NOT NULL,
+    role VARCHAR(30) NOT NULL,
+    salary INTEGER NOT NULL,
+    join_date VARCHAR(30) NOT NULL,
+    years_of_experience INTEGER NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS credentials (
+    id SERIAL PRIMARY KEY,
+    email VARCHAR(30) UNIQUE NOT NULL,
+    password_hash TEXT NOT NULL
+);
