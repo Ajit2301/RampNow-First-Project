@@ -8,7 +8,7 @@ export default function Home() {
 
   useEffect(() => {
     // Redirect to the login page
-    router.push("/login");
+    router.push("/welcome");
   }, [router]);
 
   return null; // Render nothing since we're redirecting
