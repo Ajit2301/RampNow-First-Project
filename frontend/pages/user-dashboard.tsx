@@ -48,7 +48,7 @@ const UserDashboard = () => {
     }
 
     setLoading(false);
-  }, [router.isReady, router.query]);
+  }, [router]);
 
   const toggleDropdown = () => setIsDropdownOpen((prev) => !prev);
 

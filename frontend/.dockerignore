@@ -1,0 +1,25 @@
+# Don't include source control or IDE stuff
+.git
+.vscode
+.idea
+
+# Don't include dependencies (will reinstall in Docker)
+node_modules
+npm-debug.log
+yarn-error.log
+
+# Don't include environment files (use Docker env instead)
+.env
+.env.local
+.env.development
+.env.production
+
+# Build output (if you’re doing a fresh build inside Docker)
+.next
+out
+dist
+build
+
+# Mac/Windows junk
+.DS_Store
+Thumbs.db

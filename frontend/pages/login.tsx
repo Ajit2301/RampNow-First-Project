@@ -14,7 +14,7 @@ const Login = () => {
     if (token) {
       router.push("/dashboard");
     }
-  }, [router]);
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,7 +31,7 @@ const Login = () => {
           query: { user: JSON.stringify(user_data) },
         });
       }
-    } catch (err: any) {
+    } catch (err: unknown) {
       if (axios.isAxiosError(err) && err.response) {
         setError(err.response.data?.error || "Invalid credentials. Please try again.");
       } else {

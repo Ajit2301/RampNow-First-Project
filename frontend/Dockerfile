@@ -6,7 +6,7 @@ WORKDIR /app
 
 # Install dependencies
 COPY package.json package-lock.json ./
-RUN npm install
+RUN npm ci --only=production
 
 # Copy the rest of the frontend code
 COPY . .
@@ -19,3 +19,4 @@ EXPOSE 3000
 
 # Start the Next.js server
 CMD ["npm", "run", "start"]
+
