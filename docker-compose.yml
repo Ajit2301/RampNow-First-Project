@@ -1,0 +1,46 @@
+
+
+services:
+  # Go Backend Service
+  backend:
+    container_name: go-backend
+    build:
+      context: ./backend  # Path to your Go backend source folder
+    image: y-go-app:v1.0.0  # Local tag after build
+    ports:
+      - "8080:8080"  # Map container's port 8080 to localhost's port 8080
+    environment:
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=ajith2243 # Replace with your actual database password
+      - DB_NAME=admin # Replace with your database name
+    depends_on:
+      - postgres  # Ensure PostgreSQL starts before Go backend
+
+  # Next.js Frontend Service
+  frontend:
+    build:
+      context: ./frontend  # Path to your Next.js frontend source folder
+    container_name: nextjs-frontend
+    ports:
+      - "3000:3000"  # Map container's port 3000 to localhost's port 3000
+    depends_on:
+      - backend  # Ensure backend service starts first
+
+  # PostgreSQL Database Service
+  postgres:
+    image: postgres:15  # Use the official PostgreSQL image
+    container_name: postgres-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ajith2243  # Set your database password here
+      POSTGRES_DB: admin  # Your database name
+    ports:
+      - "5432:5432"  # Map container's port 5432 to localhost's port 5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data  # Persist database data
+
+# Volumes to persist data
+volumes:
+  postgres_data:
