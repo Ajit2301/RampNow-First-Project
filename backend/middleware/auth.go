@@ -38,7 +38,15 @@ func AuthMiddleware() gin.HandlerFunc {
 		}
 
 		// Extract token from the header (bearer token)
-		tokenString := strings.Split(authHeader, " ")[1]
+		// Check if the token has correct format
+		parts := strings.Split(authHeader, " ")
+		if len(parts) != 2 || strings.ToLower(parts[0]) != "bearer" {
+			c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid authorization header format"})
+			c.Abort()
+			return
+		}
+
+		tokenString := parts[1] // <-- Add this line to assign the token string
 
 		// Parse and validate the JWT token
 		token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
@@ -63,7 +71,6 @@ func AuthMiddleware() gin.HandlerFunc {
 			return
 		}
 
-		
 		// Set the user email into the context for later use
 		c.Set("email", claims["email"].(string))
 

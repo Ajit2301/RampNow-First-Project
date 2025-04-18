@@ -252,7 +252,7 @@ func Login(c *gin.Context) {
 
 		// Retrieve the secret key from the environment variables
 		SecretKey := []byte(os.Getenv("SECRET_KEY"))
-		if SecretKey == nil || len(SecretKey) == 0 {
+		if SecretKey == nil || len(SecretKey) == 0{
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "Secret key not found"})
 			return
 		}

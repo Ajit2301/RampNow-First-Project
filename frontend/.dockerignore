@@ -1,25 +1,25 @@
-# Don't include source control or IDE stuff
+# Source control & IDEs
 .git
 .vscode
 .idea
 
-# Don't include dependencies (will reinstall in Docker)
+# Dependencies (reinstalled in Docker)
 node_modules
 npm-debug.log
 yarn-error.log
 
-# Don't include environment files (use Docker env instead)
+# Ignore all env files EXCEPT the one used for production
 .env
 .env.local
 .env.development
-.env.production
+!.env.production  # Allow this to be used during Docker build
 
-# Build output (if you’re doing a fresh build inside Docker)
+# Build output (recreated in Docker)
 .next
 out
 dist
 build
 
-# Mac/Windows junk
+# OS junk files
 .DS_Store
 Thumbs.db

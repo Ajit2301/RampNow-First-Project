@@ -562,210 +562,211 @@ export default function Dashboard() {
         <br></br>
         {/* Users List */}
         <div className="bg-white rounded-lg shadow-lg p-6">
-          <h2 className="text-2xl font-semibold text-blue-800 mb-6 text-center">Search Users</h2>
-          <div className=" p-6 bg-white shadow-lg rounded-lg">
-            <form className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {/* First Name */}
-              <div>
-                <label className="block font-semibold text-gray-700 mb-1">First Name</label>
-                <input
-                  type="text"
-                  name="first_name"
-                  value={filters.first_name || ""}
-                  onChange={handleFilterChange}
-                  placeholder="First Name"
-                  className="w-full border border-gray-300 rounded px-3 py-2 focus:ring focus:ring-blue-500"
-                />
-              </div>
+  <h2 className="text-2xl font-semibold text-blue-800 mb-6 text-center">Search Users</h2>
+  <div className="p-6 bg-white shadow-lg rounded-lg">
+    <form className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      {/* First Name */}
+      <div>
+        <label className="block font-semibold text-gray-700 mb-1">First Name</label>
+        <input
+          type="text"
+          name="first_name"
+          value={filters.first_name || ""}
+          onChange={handleFilterChange}
+          placeholder="First Name"
+          className="w-full border border-gray-300 rounded px-3 py-2 focus:ring focus:ring-blue-500 text-black"
+        />
+      </div>
 
-              {/* Last Name */}
-              <div>
-                <label className="block font-semibold text-gray-700 mb-1">Last Name</label>
-                <input
-                  type="text"
-                  name="last_name"
-                  value={filters.last_name || ""}
-                  onChange={handleFilterChange}
-                  placeholder="Last Name"
-                  className="w-full border border-gray-300 rounded px-3 py-2 focus:ring focus:ring-blue-500"
-                />
-              </div>
+      {/* Last Name */}
+      <div>
+        <label className="block font-semibold text-gray-700 mb-1">Last Name</label>
+        <input
+          type="text"
+          name="last_name"
+          value={filters.last_name || ""}
+          onChange={handleFilterChange}
+          placeholder="Last Name"
+          className="w-full border border-gray-300 rounded px-3 py-2 focus:ring focus:ring-blue-500 text-black"
+        />
+      </div>
 
-              {/* Email */}
-              <div>
-                <label className="block font-semibold text-gray-700 mb-1">Email</label>
-                <input
-                  type="email"
-                  name="email"
-                  value={filters.email || ""}
-                  onChange={handleFilterChange}
-                  placeholder="Email"
-                  className="w-full border border-gray-300 rounded px-3 py-2 focus:ring focus:ring-blue-500"
-                />
-              </div>
+      {/* Email */}
+      <div>
+        <label className="block font-semibold text-gray-700 mb-1">Email</label>
+        <input
+          type="email"
+          name="email"
+          value={filters.email || ""}
+          onChange={handleFilterChange}
+          placeholder="Email"
+          className="w-full border border-gray-300 rounded px-3 py-2 focus:ring focus:ring-blue-500 text-black"
+        />
+      </div>
 
-              {/* Phone */}
-              <div>
-                <label className="block font-semibold text-gray-700 mb-1">Phone</label>
-                <input
-                  type="text"
-                  name="phone"
-                  value={filters.phone || ""}
-                  onChange={handleFilterChange}
-                  placeholder="Phone"
-                  className="w-full border border-gray-300 rounded px-3 py-2 focus:ring focus:ring-blue-500"
-                />
-              </div>
+      {/* Phone */}
+      <div>
+        <label className="block font-semibold text-gray-700 mb-1">Phone</label>
+        <input
+          type="text"
+          name="phone"
+          value={filters.phone || ""}
+          onChange={handleFilterChange}
+          placeholder="Phone"
+          className="w-full border border-gray-300 rounded px-3 py-2 focus:ring focus:ring-blue-500 text-black"
+        />
+      </div>
 
-              {/* Gender */}
-              <div>
-                <label className="flex items-center text-black">Gender</label>
-                <div className="gap-4">
-                  {["Male", "Female", "Other"].map((gender) => (
-                    <label key={gender} className="flex items-center text-black">
-                      <input
-                        type="checkbox"
-                        value={gender}
-                        checked={filters.gender?.includes(gender) || false} // Use optional chaining and default fallback
-                        onChange={(e) => handleMultiSelectChange(e, "gender")}
-                        className="mr-2"
-                      />
-                      {gender}
-                    </label>
-                  ))}
-                </div>
-              </div>
+      {/* Gender */}
+      <div>
+        <label className="flex items-center text-black">Gender</label>
+        <div className="gap-4">
+          {["Male", "Female", "Other"].map((gender) => (
+            <label key={gender} className="flex items-center text-black">
+              <input
+                type="checkbox"
+                value={gender}
+                checked={filters.gender?.includes(gender) || false}
+                onChange={(e) => handleMultiSelectChange(e, "gender")}
+                className="mr-2"
+              />
+              {gender}
+            </label>
+          ))}
+        </div>
+      </div>
 
-              {/* Location */}
-              <div>
-                <label className="block font-semibold text-gray-700 mb-1">Location</label>
-                <div className="gap-4">
-                  {["Coimbatore", "Chennai", "Bangalore", "Hyderabad", "Pune"].map((location) => (
-                    <label key={location} className="flex items-center text-black">
-                      <input
-                        type="checkbox"
-                        value={location}
-                        checked={filters.location?.includes(location) || false} // Use optional chaining and default fallback
-                        onChange={(e) => handleMultiSelectChange(e, "location")}
-                        className="mr-2"
-                      />
-                      {location}
-                    </label>
-                  ))}
-                </div>
-              </div>
+      {/* Location */}
+      <div>
+        <label className="block font-semibold text-gray-700 mb-1">Location</label>
+        <div className="gap-4">
+          {["Coimbatore", "Chennai", "Bangalore", "Hyderabad", "Pune"].map((location) => (
+            <label key={location} className="flex items-center text-black">
+              <input
+                type="checkbox"
+                value={location}
+                checked={filters.location?.includes(location) || false}
+                onChange={(e) => handleMultiSelectChange(e, "location")}
+                className="mr-2"
+              />
+              {location}
+            </label>
+          ))}
+        </div>
+      </div>
 
-              {/* Department */}
-              <div>
-                <label className="flex items-center text-black">Department</label>
-                <div className=" gap-4">
-                  {["HR", "Finance", "Engineering", "Marketing", "Sales"].map((dept) => (
-                    <label key={dept} className="flex items-center text-black">
-                      <input
-                        type="checkbox"
-                        value={dept}
-                        checked={filters.department?.includes(dept) || false} // Use optional chaining and default fallback
-                        onChange={(e) => handleMultiSelectChange(e, "department")}
-                        className="mr-2"
-                      />
-                      {dept}
-                    </label>
-                  ))}
-                </div>
-              </div>
+      {/* Department */}
+      <div>
+        <label className="flex items-center text-black">Department</label>
+        <div className="gap-4">
+          {["HR", "Finance", "Engineering", "Marketing", "Sales"].map((dept) => (
+            <label key={dept} className="flex items-center text-black">
+              <input
+                type="checkbox"
+                value={dept}
+                checked={filters.department?.includes(dept) || false}
+                onChange={(e) => handleMultiSelectChange(e, "department")}
+                className="mr-2"
+              />
+              {dept}
+            </label>
+          ))}
+        </div>
+      </div>
 
-              {/* Role */}
-              <div>
-                <label className="flex items-center text-black">Role</label>
-                <div className="gap-4">
-                  {["Admin", "Manager", "Developer", "User"].map((role) => (
-                    <label key={role} className="flex items-center text-black">
-                      <input
-                        type="checkbox"
-                        value={role}
-                        checked={filters.role?.includes(role) || false} // Use optional chaining and default fallback
-                        onChange={(e) => handleMultiSelectChange(e, "role")}
-                        className="mr-2"
-                      />
-                      {role}
-                    </label>
-                  ))}
-                </div>
-              </div>
+      {/* Role */}
+      <div>
+        <label className="flex items-center text-black">Role</label>
+        <div className="gap-4">
+          {["Admin", "Manager", "Developer", "User"].map((role) => (
+            <label key={role} className="flex items-center text-black">
+              <input
+                type="checkbox"
+                value={role}
+                checked={filters.role?.includes(role) || false}
+                onChange={(e) => handleMultiSelectChange(e, "role")}
+                className="mr-2"
+              />
+              {role}
+            </label>
+          ))}
+        </div>
+      </div>
 
-              {/* Salary */}
-              <div>
-                <label className="block font-semibold text-gray-700 mb-1">Salary</label>
-                <div className="flex gap-2">
-                  <input
-                    type="number"
-                    name="salary_from"
-                    value={filters.salary_from || ""}
-                    onChange={handleFilterChange}
-                    placeholder="From"
-                    className="w-1/2 border border-gray-300 rounded px-3 py-2 focus:ring focus:ring-blue-500"
-                    min="0" // Restrict values to 0 or higher
-                  />
-                  <input
-                    type="number"
-                    name="salary_to"
-                    value={filters.salary_to || ""}
-                    onChange={handleFilterChange}
-                    placeholder="To"
-                    className="w-1/2 border border-gray-300 rounded px-3 py-2 focus:ring focus:ring-blue-500"
-                    min="0" // Restrict values to 0 or higher
-                  />
-                </div>
-              </div>
+      {/* Salary */}
+      <div>
+        <label className="block font-semibold text-gray-700 mb-1">Salary</label>
+        <div className="flex gap-2">
+          <input
+            type="number"
+            name="salary_from"
+            value={filters.salary_from || ""}
+            onChange={handleFilterChange}
+            placeholder="From"
+            className="w-1/2 border border-gray-300 rounded px-3 py-2 focus:ring focus:ring-blue-500 text-black"
+            min="0"
+          />
+          <input
+            type="number"
+            name="salary_to"
+            value={filters.salary_to || ""}
+            onChange={handleFilterChange}
+            placeholder="To"
+            className="w-1/2 border border-gray-300 rounded px-3 py-2 focus:ring focus:ring-blue-500 text-black"
+            min="0"
+          />
+        </div>
+      </div>
 
-              {/* Join Date */}
-             <div>
-  <label className="block font-semibold text-gray-700 mb-1">Join Date (From and To)</label>
-  <div className="flex gap-2">
-    <input
-      type="date"
-      name="join_date_from"
-      value={filters.join_date_from || ""}
-      onChange={handleFilterChange}
-      className="w-1/2 border border-gray-300 rounded px-3 py-2 focus:ring focus:ring-blue-500"
-      max={new Date().toISOString().split("T")[0]} // Ensure max date is today
-    />
-    <input
-      type="date"
-      name="join_date_to"
-      value={filters.join_date_to || ""}
-      onChange={handleFilterChange}
-      className="w-1/2 border border-gray-300 rounded px-3 py-2 focus:ring focus:ring-blue-500"
-      max={new Date().toISOString().split("T")[0]} // Ensure max date is today
-    />
-  </div>
-</div>
+      {/* Join Date */}
+      <div>
+        <label className="block font-semibold text-gray-700 mb-1">Join Date (From and To)</label>
+        <div className="flex gap-2">
+          <input
+            type="date"
+            name="join_date_from"
+            value={filters.join_date_from || ""}
+            onChange={handleFilterChange}
+            className="w-1/2 border border-gray-300 rounded px-3 py-2 focus:ring focus:ring-blue-500 text-black"
+            max={new Date().toISOString().split("T")[0]}
+          />
+          <input
+            type="date"
+            name="join_date_to"
+            value={filters.join_date_to || ""}
+            onChange={handleFilterChange}
+            className="w-1/2 border border-gray-300 rounded px-3 py-2 focus:ring focus:ring-blue-500 text-black"
+            max={new Date().toISOString().split("T")[0]}
+          />
+        </div>
+      </div>
 
-              {/* Years of Experience */}
-              <div>
-                <label className="block font-semibold text-gray-700 mb-1">Years of Experience</label>
-                <div className="flex gap-2">
-                  <input
-                    type="number"
-                    name="years_of_experience_from"
-                    value={filters.years_of_experience_from || ""}
-                    onChange={handleFilterChange}
-                    placeholder="From"
-                    className="w-1/2 border border-gray-300 rounded px-3 py-2 focus:ring focus:ring-blue-500"
-                    min="0" // Restrict values to 0 or higher
-                  />
-                  <input
-                    type="number"
-                    name="years_of_experience_to"
-                    value={filters.years_of_experience_to || ""}
-                    onChange={handleFilterChange}
-                    placeholder="To"
-                    className="w-1/2 border border-gray-300 rounded px-3 py-2 focus:ring focus:ring-blue-500"
-                    min="0" // Restrict values to 0 or higher
-                  />
-                </div>
-              </div>
-            </form>
+      {/* Years of Experience */}
+      <div>
+        <label className="block font-semibold text-gray-700 mb-1">Years of Experience</label>
+        <div className="flex gap-2">
+          <input
+            type="number"
+            name="years_of_experience_from"
+            value={filters.years_of_experience_from || ""}
+            onChange={handleFilterChange}
+            placeholder="From"
+            className="w-1/2 border border-gray-300 rounded px-3 py-2 focus:ring focus:ring-blue-500 text-black"
+            min="0"
+          />
+          <input
+            type="number"
+            name="years_of_experience_to"
+            value={filters.years_of_experience_to || ""}
+            onChange={handleFilterChange}
+            placeholder="To"
+            className="w-1/2 border border-gray-300 rounded px-3 py-2 focus:ring focus:ring-blue-500 text-black"
+            min="0"
+          />
+        </div>
+      </div>
+    </form>
+  
 
             {/* Action Buttons */}
             <div className="mt-6 flex justify-end gap-4">
@@ -905,6 +906,8 @@ export default function Dashboard() {
 </div>
 </div>
 </div>
+
+
     </ProtectedRoute>
 
   );

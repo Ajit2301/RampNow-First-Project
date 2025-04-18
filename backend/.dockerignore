@@ -2,5 +2,8 @@
 node_modules
 tmp
 *.log
-coverage
-.env
+coverag
+# Do not exclude .env files
+!.env
+!.env.local
+!.env.production

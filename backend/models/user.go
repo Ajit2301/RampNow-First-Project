@@ -4,11 +4,12 @@ import (
 	"admin-dashboard/database"
 	"database/sql"
 	"fmt"
+	"log"
 	"strings"
 	"time"
 )
 
-type User struct {
+type Users struct {
 	ID                  int       `json:"id"`
 	First_Name          string    `json:"first_name"`
 	Last_Name           string    `json:"last_name"`
@@ -43,8 +44,8 @@ type UserFilters struct {
 }
 
 // Function to get all users from the database
-func GetAllUsers(offset, limit int, filters UserFilters) ([]User, int, error) {
-	var users []User
+func GetAllUsers(offset, limit int, filters UserFilters) ([]Users, int, error) {
+	var users []Users
 	var total int
 
 	// Build the WHERE clause dynamically
@@ -62,7 +63,7 @@ func GetAllUsers(offset, limit int, filters UserFilters) ([]User, int, error) {
 		args = append(args, "%"+filters.LastName+"%")
 		argIndex++
 	}
-	
+
 	if len(filters.Gender) > 0 {
 		placeholders := []string{}
 		for _, gender := range filters.Gender {
@@ -109,7 +110,7 @@ func GetAllUsers(offset, limit int, filters UserFilters) ([]User, int, error) {
 		}
 		conditions = append(conditions, fmt.Sprintf("role IN (%s)", strings.Join(placeholders, ",")))
 	}
-	
+
 	if filters.SalaryFrom != nil {
 		conditions = append(conditions, fmt.Sprintf("salary >= $%d", argIndex))
 		args = append(args, *filters.SalaryFrom)
@@ -166,7 +167,7 @@ func GetAllUsers(offset, limit int, filters UserFilters) ([]User, int, error) {
 	defer rows.Close()
 
 	for rows.Next() {
-		var user User
+		var user Users
 		if err := rows.Scan(&user.ID, &user.First_Name, &user.Last_Name, &user.Gender, &user.Location, &user.Email, &user.Phone, &user.Department, &user.Role, &user.Salary, &user.Join_Date, &user.Years_of_Experience, &user.CreatedAt, &user.UpdatedAt); err != nil {
 			return nil, 0, err
 		}
@@ -197,23 +198,25 @@ func CreateUser(first_name, last_name, gender, location, email, phone, departmen
 	if err2 == nil {
 		// If no error, it means the phone number already exists
 		return 0, fmt.Errorf("phone already exists")
-	} else if err != sql.ErrNoRows {
+	} else if err2 != sql.ErrNoRows {
 		// If the error is not "no rows found", return the error
-		return 0, err
+		return 0, err2
 	}
 
 	// Proceed to insert the new user
 	insertQuery := `
-		INSERT INTO users 
-		(first_name, last_name, gender, location, email, phone, department, role, salary, join_date, years_of_experience, created_at, updated_at) 
-		VALUES 
-		($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, NOW(), NOW()) 
-		RETURNING id`
+        INSERT INTO users 
+        (first_name, last_name, gender, location, email, phone, department, role, salary, join_date, years_of_experience, created_at, updated_at) 
+        VALUES 
+        ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, NOW(), NOW()) 
+        RETURNING id`
 	var id int
 	err = database.DB.QueryRow(insertQuery, first_name, last_name, gender, location, email, phone, department, role, salary, join_date, years_of_experience).Scan(&id)
 	if err != nil {
+		log.Printf("Error inserting user into database: %v", err)
 		return 0, err
 	}
+	log.Printf("Inserted user with ID: %d", id)
 	return id, nil
 }
 

@@ -1,32 +1,41 @@
+//database/connection.go
 package database
 
 import (
-	"database/sql"
-	"log"
-	"os"
-	_ "github.com/lib/pq"
+    "database/sql"
+    "fmt"
+    "log"
+    "os"
+ 
+    _ "github.com/lib/pq"
+    "github.com/joho/godotenv"
 )
 
 var DB *sql.DB
 
 func InitDB() {
-	var err error
-	dbURL := os.Getenv("DATABASE_URL")
-    if dbURL == "" {
-        panic("DATABASE_URL environment variable not set")
+    err := godotenv.Load()
+    if err != nil {
+        log.Println("Warning: No .env file found. Proceeding without it.")
     }
-	DB, err = sql.Open("postgres", dbURL)
-	if err != nil {
-		log.Fatal("Failed to connect to the database:", err)
-	}
 
-	if err = DB.Ping(); err != nil {
-		log.Fatal("Database connection is not alive:", err)
-	}
+    dsn := fmt.Sprintf(
+        "host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
+        os.Getenv("DB_HOST"),
+        os.Getenv("DB_PORT"),
+        os.Getenv("DB_USER"),
+        os.Getenv("DB_PASSWORD"),
+        os.Getenv("DB_NAME"),
+    )
 
-	log.Println("Connected to the database successfully!")
-	// Log the environment variables to verify they're loaded
-	log.Println("Database URL:", os.Getenv("DATABASE_URL"))
-	log.Println("Admin Email:", os.Getenv("ADMIN_EMAIL"))
-	log.Println("Secret Key:", os.Getenv("SECRET_KEY"))
+    DB, err = sql.Open("postgres", dsn)
+    if err != nil {
+        log.Fatalf("Failed to connect to DB: %v", err)
+    }
+    log.Println("Successfully opened connection to DB")
+    if err = DB.Ping(); err != nil {
+        log.Fatalf("Failed to ping DB: %v", err)
+    }
+
+    log.Println("Database connected successfully.")
 }

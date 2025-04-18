@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"strings"
 	"time"
-
+	"log"
 	"github.com/gin-gonic/gin"
 )
 
@@ -140,10 +140,14 @@ func GetUsers(c *gin.Context) {
 	}
 
 	users, total, err := models.GetAllUsers(offset, limitInt, filters)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch users"})
-		return
-	}
+if err != nil {
+	log.Printf("Error fetching users: %v", err) // Log the actual error
+	log.Println("Query failed:", err) // <-- ADD THIS
+	c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()}) // show detailed error
+	c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch users"})
+	return
+}
+
 
 	c.JSON(http.StatusOK, gin.H{
 		"users": users,
