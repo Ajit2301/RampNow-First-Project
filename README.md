@@ -33,6 +33,11 @@ cd admin-dashboard
 Make sure the following `.env` files are configured:
 - **Backend**: `backend/.env`
     ```env
+    DB_HOST=postgres
+DB_PORT=5432
+DB_USER=<YOUR DB USER NAME>
+DB_PASSWORD=<YOUR DB PASSWORD>
+DB_NAME=<YOUR DB NAME>
     SECRET_KEY=<YOUR_JWT_SECRET_KEY>
     ADMIN_EMAIL=<YOUR_ADMIN_EMAIL>
     ADMIN_PASSWORD=<YOUR_ADMIN_PASSWORD>
